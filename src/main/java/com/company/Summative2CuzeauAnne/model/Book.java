@@ -5,6 +5,7 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -31,7 +32,7 @@ public class Book implements Serializable {
     @NotNull
     private String title;
 
-    private Integer price;
+    private BigDecimal price;
 
     public Integer getId() {
         return id;
@@ -81,11 +82,11 @@ public class Book implements Serializable {
         this.title = title;
     }
 
-    public Integer getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

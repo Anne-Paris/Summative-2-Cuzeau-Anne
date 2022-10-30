@@ -14,7 +14,7 @@ public class PublisherController {
     @Autowired
     PublisherRepository repository;
 
-    @GetMapping
+    @GetMapping("/publishers")
     public List<Publisher> getPublishers() {
         return repository.findAll();
     }
