@@ -38,6 +38,17 @@ public class BookController {
         }
     }
 
+    @GetMapping("/books/author/{authorId}")
+    public List<Book> getAllBooksByAuthorId(@PathVariable int authorId) {
+
+        List<Book> bookList = repository.findAllBooksByAuthorId(authorId);
+        if (bookList.size() > 0) {
+            return bookList;
+        } else {
+            return null;
+        }
+    }
+
     @PostMapping("/books")
     @ResponseStatus(HttpStatus.CREATED)
     public Book addBook(@RequestBody Book book) {

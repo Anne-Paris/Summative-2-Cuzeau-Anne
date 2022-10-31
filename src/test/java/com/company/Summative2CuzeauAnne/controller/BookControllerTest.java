@@ -103,7 +103,6 @@ public class BookControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(content().json(bookJson));
-
     }
 
     @Test
@@ -155,4 +154,32 @@ public class BookControllerTest {
     }
 
 
+    @Test
+    public void shouldReturnAllBooksByAuthorId() throws Exception {
+        Book inputBook = new Book();
+        inputBook.setId(1);
+        inputBook.setAuthorId(1);
+        inputBook.setPublisherId(2);
+        inputBook.setTitle("book2 title");
+        inputBook.setIsbn("book2isbn");
+        inputBook.setPrice(new BigDecimal("21.95"));
+        String inputJson = mapper.writeValueAsString(inputBook);
+
+        doReturn(inputBook).when(repo).save(inputBook);
+
+        bookJson = mapper.writeValueAsString(inputBook);
+
+        mockMvc.perform(
+                        post("/books")
+                                .content(inputJson)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(content().json(bookJson));
+
+        mockMvc.perform(
+                        get("/books/author/1")
+                                .content(bookJson)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 }
